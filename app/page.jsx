@@ -14,7 +14,7 @@ export default function Home() {
     <div className={styles.container}>
       <div className={styles.dashboard_sales_cards}>
         {sales_card.map((card, _) => (
-          <DashboardSalesCards ind={_} />
+          <DashboardSalesCards key={_} ind={_} />
         ))}
       </div>
       <div className={styles.metricCards}>
