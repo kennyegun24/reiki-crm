@@ -17,6 +17,9 @@
       display: flex;
       gap: 1rem;
       align-items: center;
+      & > svg {
+        cursor: pointer;
+      }
       .input_container {
         display: flex;
         gap: 0.5rem;
@@ -42,6 +45,35 @@
         width: 40px;
         border-radius: 50%;
         background: #fff;
+      }
+
+      .light_mode_div {
+        position: relative;
+
+        & > svg {
+          cursor: pointer;
+        }
+
+        & > div {
+          position: absolute;
+          top: 30px;
+          left: -150px;
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          height: auto;
+          background: #263240;
+          padding: 1rem;
+          width: 150px;
+          border-radius: 9px;
+          & > p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 13px;
+            color: #9d9d9d;
+          }
+        }
       }
     }
   }

@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./top_nav.module.css";
 import { CiSearch } from "react-icons/ci";
-import { FaBars } from "react-icons/fa";
-import { GoSun } from "react-icons/go";
+import { FaBars, FaMoon } from "react-icons/fa";
+import { GoSun, GoCpu } from "react-icons/go";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { usePathname } from "next/navigation";
 
-const TopNav = () => {
+const TopNav = ({ setFullScreen }) => {
   const pathname = usePathname()
     .split("/")
     .filter((each) => each !== "");
@@ -21,11 +21,17 @@ const TopNav = () => {
     pathname.length > 1 ? pathname[1].substring(1) : "ome";
   const firstPath = capFirst + remainingStr;
   const secondPath = capSec + remainingSecStr;
+
+  const [toggle, setToggle] = useState(false);
   return (
     <div className={styles.container}>
       <div className={styles.sub_container}>
         <div className={styles.search_container}>
-          <FaBars color="#6F747F" size={20} />
+          <FaBars
+            onClick={() => setFullScreen((prev) => !prev)}
+            color="#6F747F"
+            size={20}
+          />
           <div className={styles.input_container}>
             <CiSearch size={20} color="#3C4754" />
             <input
@@ -38,7 +44,29 @@ const TopNav = () => {
         </div>
 
         <div className={styles.search_container}>
-          <GoSun color="#6F747F" size={20} />
+          <div className={styles.light_mode_div}>
+            <GoSun
+              onClick={() => setToggle((prev) => !prev)}
+              color="#6F747F"
+              size={20}
+            />
+            {toggle && (
+              <div>
+                <p>
+                  <GoSun color="#9d9d9d" size={16} />
+                  Light
+                </p>
+                <p>
+                  <FaMoon color="#9d9d9d" size={16} />
+                  Dark
+                </p>
+                <p>
+                  <GoCpu color="#9d9d9d" size={16} />
+                  Default
+                </p>
+              </div>
+            )}
+          </div>
           <div className={styles.img} />
         </div>
       </div>
