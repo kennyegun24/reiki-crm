@@ -43,6 +43,13 @@ const rows = [
   createData("Massage table", 299.99, 29, 10),
   createData("Massage chair", 300, 12, 32),
   createData("Jazz Sound Collections", 15, 129, 320),
+  createData("Scent relaxing candles", 120, 5, 29),
+  createData("Mat stretcher", 99.99, 1, 4),
+  createData("Essential Oils", 18.24, 4, 291),
+  createData("Crystals", 290.99, 1, 16),
+  createData("Massage table", 299.99, 29, 10),
+  createData("Massage chair", 300, 12, 32),
+  createData("Jazz Sound Collections", 15, 129, 320),
 ];
 
 export default function CustomizedTables() {

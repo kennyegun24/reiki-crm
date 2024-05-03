@@ -31,18 +31,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(product_name, price, in_stock, sold) {
-  return { product_name, price, in_stock, sold };
+function createData(product_name, price) {
+  return { product_name, price };
 }
 
 const rows = [
-  createData("Scent relaxing candles", 120, 5, 29),
-  createData("Mat stretcher", 99.99, 1, 4),
-  createData("Essential Oils", 18.24, 4, 291),
-  createData("Crystals", 290.99, 1, 16),
-  createData("Massage table", 299.99, 29, 10),
-  createData("Massage chair", 300, 12, 32),
-  createData("Jazz Sound Collections", 15, 129, 320),
+  createData("Scent relaxing candles", 120),
+  createData("Mat stretcher", 99.99),
+  createData("Essential Oils", 18.24),
+  createData("Crystals", 290.99),
+  createData("Massage table", 299.99),
+  createData("Massage chair", 300),
+  createData("Jazz Sound Collections", 15),
+  createData("Scent relaxing candles", 120),
+  createData("Mat stretcher", 99.99),
+  createData("Essential Oils", 18.24),
+  createData("Crystals", 290.99),
+  createData("Massage table", 299.99),
+  createData("Massage chair", 300),
+  createData("Jazz Sound Collections", 15),
 ];
 
 export default function CustomizedTables() {
@@ -66,16 +73,10 @@ export default function CustomizedTables() {
           <TableHead>
             <TableRow>
               <StyledTableCell sx={{ minWidth: "250px" }}>
-                Product Name
+                Service Name
               </StyledTableCell>
               <StyledTableCell align="left" sx={{ minWidth: "100px" }}>
                 Price
-              </StyledTableCell>
-              <StyledTableCell sx={{ minWidth: "150px" }} align="center">
-                In Stock
-              </StyledTableCell>
-              <StyledTableCell sx={{ minWidth: "200px" }} align="left">
-                Sold
               </StyledTableCell>
             </TableRow>
           </TableHead>
@@ -86,8 +87,6 @@ export default function CustomizedTables() {
                   {row.product_name}
                 </StyledTableCell>
                 <StyledTableCell align="left">{row.price}</StyledTableCell>
-                <StyledTableCell align="center">{row.in_stock}</StyledTableCell>
-                <StyledTableCell align="left">{row.sold}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

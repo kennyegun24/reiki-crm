@@ -10,6 +10,15 @@ body {
   overflow: hidden;
 }
 
+.app_children::-webkit-scrollbar {
+  width: 5px;
+  background: #000;
+}
+
+.app_children::-webkit-scrollbar-thumb {
+  background: #cececf;
+}
+
 .app_nav {
   width: 18%;
 }
@@ -36,10 +45,6 @@ body {
     background: rgba(34, 34, 34, 0.1);
     /* grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); */
   }
-
-  /* .app_top_nav * {
-    background: transparent;
-  } */
 }
 
 .full_screen {

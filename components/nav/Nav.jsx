@@ -2,7 +2,7 @@
 import React from "react";
 import styles from "./style.module.css";
 import { FcStatistics } from "react-icons/fc";
-import { FaUsersRectangle } from "react-icons/fa6";
+import { FaProductHunt, FaUsersRectangle } from "react-icons/fa6";
 import { FiDatabase } from "react-icons/fi";
 import { IoPieChartOutline } from "react-icons/io5";
 import { TfiDashboard } from "react-icons/tfi";
