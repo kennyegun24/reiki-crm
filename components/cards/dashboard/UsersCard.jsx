@@ -10,7 +10,7 @@ const UsersCard = () => {
       <hr />
       <section className="users_lists">
         {arr.map((user, _) => (
-          <section className="user">
+          <section className="user" key={_}>
             <div className="user_list_name_container">
               <div className="img" />
               <p>
