@@ -31,12 +31,14 @@ const page = () => {
           key={78389}
         />
       </div>
-      <OtherCards
-        text={"Users"}
-        icon={<FaUsersViewfinder color="#fff" />}
-        value={"121"}
-        key={4283233}
-      />
+      <div style={{ height: "fit-content" }}>
+        <OtherCards
+          text={"Users"}
+          icon={<FaUsersViewfinder color="#fff" />}
+          value={"121"}
+          key={4283233}
+        />
+      </div>
     </div>
   );
 };
