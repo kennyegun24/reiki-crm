@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: transparent;
+  padding: 0 2rem;
+
+  .sub_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    width: 100%;
+
+    .search_container {
+      background: transparent;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      .input_container {
+        display: flex;
+        gap: 0.5rem;
+        background: #263240;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 9px;
+
+        .search_input {
+          padding: 0.3rem;
+          border: none;
+          outline: none;
+          color: #fff;
+
+          &::placeholder {
+            color: #bfbfbf;
+          }
+        }
+      }
+
+      .img {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: #fff;
+      }
+    }
+  }
+
+  .tab_text {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: #bfbfbf;
+    background: transparent;
+  }
+
+  .tab_text * {
+    background: transparent;
+  }
+}
+.search_container * {
+  background: transparent;
+}
