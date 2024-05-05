@@ -88,10 +88,6 @@
     color: #bfbfbf;
     background: transparent;
   }
-
-  .tab_text * {
-    background: transparent;
-  }
 }
 .search_container * {
   background: transparent;
@@ -100,5 +96,9 @@
   background: transparent;
 }
 .sub_container * {
+  background: transparent;
+}
+
+.tab_text * {
   background: transparent;
 }
