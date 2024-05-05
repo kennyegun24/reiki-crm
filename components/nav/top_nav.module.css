@@ -27,7 +27,6 @@
         align-items: center;
         padding: 0.5rem;
         border-radius: 9px;
-        background: transparent;
 
         .search_input {
           padding: 0.3rem;
@@ -95,5 +94,11 @@
   }
 }
 .search_container * {
+  background: transparent;
+}
+.sub_container {
+  background: transparent;
+}
+.sub_container * {
   background: transparent;
 }
