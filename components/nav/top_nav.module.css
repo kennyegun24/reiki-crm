@@ -27,6 +27,7 @@
         align-items: center;
         padding: 0.5rem;
         border-radius: 9px;
+        background: transparent;
 
         .search_input {
           padding: 0.3rem;
@@ -49,9 +50,11 @@
 
       .light_mode_div {
         position: relative;
+        background: transparent;
 
         & > svg {
           cursor: pointer;
+          background: transparent;
         }
 
         & > div {
@@ -72,6 +75,7 @@
             gap: 0.5rem;
             font-size: 13px;
             color: #9d9d9d;
+            background: transparent;
           }
         }
       }
