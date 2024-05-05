@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaPlus } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,6 +54,10 @@ const rows = [
 ];
 
 export default function CustomizedTables() {
+  const router = useRouter();
+  const navigate = () => {
+    router.push("/add/service");
+  };
   return (
     <div
       style={{
@@ -106,9 +111,10 @@ export default function CustomizedTables() {
           alignItems: "center",
           cursor: "pointer",
         }}
+        onClick={navigate}
       >
         <FaPlus style={{ background: "transparent" }} />
-        Add New Product
+        Add New Service
       </button>
     </div>
   );
