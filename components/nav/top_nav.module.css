@@ -99,6 +99,10 @@
   background: transparent;
 }
 
+.tab_text {
+  background: transparent;
+}
+
 .tab_text * {
   background: transparent;
 }
