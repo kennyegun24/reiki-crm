@@ -25,7 +25,7 @@ const Settings = () => {
       >
         <section className="settings_header">
           <h4>Settings</h4>
-          <div>
+          <div className="settings_close_div">
             <IoIosClose
               size={30}
               color="#c32323"
