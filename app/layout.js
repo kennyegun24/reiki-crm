@@ -3,6 +3,7 @@ import "./globals.css";
 import Nav from "@/components/nav/Nav";
 import TopNav from "@/components/nav/TopNav";
 import { MainProvider } from "@/context/Main";
+import { SettingsProvider } from "@/context/Settings";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MainProvider>{children}</MainProvider>
+        <SettingsProvider>
+          <MainProvider>{children}</MainProvider>
+        </SettingsProvider>
       </body>
     </html>
   );

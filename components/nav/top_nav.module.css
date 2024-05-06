@@ -15,7 +15,7 @@
     .search_container {
       background: transparent;
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
       align-items: center;
       & > svg {
         cursor: pointer;
@@ -50,6 +50,10 @@
       .light_mode_div {
         position: relative;
         background: transparent;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         & > svg {
           cursor: pointer;
@@ -78,6 +82,21 @@
           }
         }
       }
+
+      .gear_container {
+        height: 45px;
+        width: 45px;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #19212a;
+        cursor: pointer;
+
+        & > svg {
+          animation: rotate infinite linear 4s;
+        }
+      }
     }
   }
 
@@ -89,20 +108,19 @@
     background: transparent;
   }
 }
-.search_container * {
-  background: transparent;
-}
-.sub_container {
-  background: transparent;
-}
-.sub_container * {
-  background: transparent;
-}
-
-.tab_text {
-  background: transparent;
-}
-
+.search_container *,
+.sub_container,
+.sub_container *,
+.tab_text,
 .tab_text * {
   background: transparent;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

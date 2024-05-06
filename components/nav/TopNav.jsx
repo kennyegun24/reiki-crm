@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./top_nav.module.css";
-import { CiSearch } from "react-icons/ci";
+import { CiSearch, CiSettings } from "react-icons/ci";
 import { FaBars, FaMoon } from "react-icons/fa";
-import { GoSun, GoCpu } from "react-icons/go";
+import { GoSun, GoCpu, GoGear } from "react-icons/go";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { usePathname } from "next/navigation";
+import { SettingsContext } from "@/context/Settings";
 
 const TopNav = ({ setFullScreen }) => {
   const pathname = usePathname()
@@ -23,6 +24,7 @@ const TopNav = ({ setFullScreen }) => {
   const secondPath = capSec + remainingSecStr;
 
   const [toggle, setToggle] = useState(false);
+  const { setShowSettings } = useContext(SettingsContext);
   return (
     <div className={styles.container}>
       <div className={styles.sub_container}>
@@ -48,7 +50,7 @@ const TopNav = ({ setFullScreen }) => {
             <GoSun
               onClick={() => setToggle((prev) => !prev)}
               color="#6F747F"
-              size={20}
+              size={24}
             />
             {toggle && (
               <div>
@@ -66,6 +68,13 @@ const TopNav = ({ setFullScreen }) => {
                 </p>
               </div>
             )}
+          </div>
+
+          <div
+            className={styles.gear_container}
+            onClick={() => setShowSettings(true)}
+          >
+            <GoGear color="#6f747f" size={24} />
           </div>
           <div className={styles.img} />
         </div>
