@@ -10,7 +10,8 @@ import { Input, Radio } from "@mui/material";
 import rtl from "@/public/rtl.svg";
 
 const Settings = () => {
-  const { showSettings, setShowSettings } = useContext(SettingsContext);
+  const { showSettings, setShowSettings, appDirection, ltr } =
+    useContext(SettingsContext);
   return (
     <div
       className={`settings_container ${
@@ -86,16 +87,30 @@ const Settings = () => {
             </section>
 
             <form className="settings_body">
-              <section className="selected_setting">
+              <section
+                className={`${ltr === "ltr" && "selected_setting"}`}
+                onClick={() => appDirection("ltr")}
+              >
                 <div>
-                  <Input type="radio" name="radio_btn1" />
+                  <input
+                    checked={ltr === "ltr"}
+                    type="radio"
+                    name="radio_btn1"
+                  />
                   <p>LTR</p>
                 </div>
                 <Image src={dark} className="settings_img" />
               </section>
-              <section>
+              <section
+                className={`${ltr === "rtl" && "selected_setting"}`}
+                onClick={() => appDirection("rtl")}
+              >
                 <div>
-                  <Input type="radio" name="radio_btn1" />
+                  <input
+                    checked={ltr === "rtl"}
+                    type="radio"
+                    name="radio_btn1"
+                  />
                   <p>RTL</p>
                 </div>
                 <Image src={rtl} className="settings_img" />

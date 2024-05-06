@@ -28,11 +28,8 @@ body {
   flex-direction: column;
   overflow-y: auto;
   height: 100vh;
-  position: absolute;
-  top: 0;
-  right: 0;
-  /* width: 100%; */
   transition: 0.3s ease-in-out all;
+  top: 0;
 
   .app_top_nav {
     position: sticky;
@@ -43,14 +40,30 @@ body {
     color: #fff;
     backdrop-filter: blur(6px);
     background: rgba(34, 34, 34, 0.1);
-    /* grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); */
   }
 }
 
 .full_screen {
   width: 100%;
+  position: absolute;
+  right: 0;
 }
 
 .half_screen {
   width: 82%;
+}
+
+.app_container {
+  display: flex;
+  width: 100%;
+}
+
+.ltr {
+  flex-direction: row-reverse;
+}
+
+.full_screen_reverse {
+  left: 0;
+  width: 100%;
+  position: absolute;
 }
