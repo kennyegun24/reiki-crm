@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./style.module.css";
 import { FcStatistics } from "react-icons/fc";
 import { FaProductHunt, FaUsersRectangle } from "react-icons/fa6";
@@ -13,6 +13,7 @@ import {
 import { IoMdAdd } from "react-icons/io";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SettingsContext } from "@/context/Settings";
 
 const widgets = [
   {
@@ -84,6 +85,7 @@ const widgets = [
 
 const Nav = () => {
   const pathName = usePathname();
+  const { showCaption } = useContext(SettingsContext);
 
   return (
     <nav className={styles.container}>
@@ -91,7 +93,13 @@ const Nav = () => {
 
       {widgets.map((widget, _) => (
         <div key={_} className={styles.navigation_container}>
-          <h3>{widget.name}</h3>
+          <h3
+            className={
+              showCaption ? styles.show_nav_caption : styles.hide_nav_caption
+            }
+          >
+            {widget.name}
+          </h3>
 
           <div className={styles.navigation_container2}>
             {widget.navs.map((widget, _) => (

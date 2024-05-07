@@ -10,8 +10,14 @@ import { Input, Radio } from "@mui/material";
 import rtl from "@/public/rtl.svg";
 
 const Settings = () => {
-  const { showSettings, setShowSettings, appDirection, ltr } =
-    useContext(SettingsContext);
+  const {
+    showSettings,
+    setShowSettings,
+    appDirection,
+    ltr,
+    shouldShowCaption,
+    showCaption,
+  } = useContext(SettingsContext);
   return (
     <div
       className={`settings_container ${
@@ -64,16 +70,32 @@ const Settings = () => {
               <p>Sidebar Caption Show/Hide</p>
             </section>
             <form className="settings_body">
-              <section className="selected_setting">
+              <section
+                className={`${!showCaption && "selected_setting"}`}
+                onClick={() => shouldShowCaption(false)}
+              >
                 <div>
-                  <Input type="radio" name="radio_btn1" />
+                  <input
+                    readOnly
+                    checked={!showCaption}
+                    type="radio"
+                    name="radio_btn1"
+                  />
                   <p>Caption Close</p>
                 </div>
                 <Image src={dark} className="settings_img" />
               </section>
-              <section>
+              <section
+                className={`${showCaption && "selected_setting"}`}
+                onClick={() => shouldShowCaption(true)}
+              >
                 <div>
-                  <Input type="radio" name="radio_btn1" />
+                  <input
+                    readOnly
+                    checked={showCaption}
+                    type="radio"
+                    name="radio_btn1"
+                  />
                   <p>Caption Open</p>
                 </div>
                 <Image src={caption} className="settings_img" />
@@ -93,6 +115,7 @@ const Settings = () => {
               >
                 <div>
                   <input
+                    readOnly
                     checked={ltr === "ltr"}
                     type="radio"
                     name="radio_btn1"
@@ -107,6 +130,7 @@ const Settings = () => {
               >
                 <div>
                   <input
+                    readOnly
                     checked={ltr === "rtl"}
                     type="radio"
                     name="radio_btn1"
