@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./top_nav.module.css";
 import { CiSearch, CiSettings } from "react-icons/ci";
 import { FaBars, FaMoon } from "react-icons/fa";
@@ -25,6 +25,22 @@ const TopNav = ({ setFullScreen }) => {
 
   const [toggle, setToggle] = useState(false);
   const { setShowSettings } = useContext(SettingsContext);
+  const popRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (popRef.current && !popRef.current.contains(e.target)) {
+        setToggle(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.sub_container}>
@@ -46,7 +62,7 @@ const TopNav = ({ setFullScreen }) => {
         </div>
 
         <div className={styles.search_container}>
-          <div className={styles.light_mode_div}>
+          <div className={styles.light_mode_div} ref={popRef}>
             <GoSun
               onClick={() => setToggle((prev) => !prev)}
               color="#6F747F"

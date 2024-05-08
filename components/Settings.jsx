@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import "./style.css";
 import { IoIosClose } from "react-icons/io";
 import { SettingsContext } from "@/context/Settings";
@@ -18,8 +18,16 @@ const Settings = () => {
     shouldShowCaption,
     showCaption,
   } = useContext(SettingsContext);
+  const settingsRef = useRef();
+  const closeSettings = (e) => {
+    if (settingsRef.current && !settingsRef.current.contains(e.target)) {
+      setShowSettings(false);
+    }
+  };
+
   return (
     <div
+      onClick={closeSettings}
       className={`settings_container ${
         showSettings ? "show_settings" : "time_delay_hide hide_settings"
       }`}
@@ -28,6 +36,7 @@ const Settings = () => {
         className={`settings_content_container ${
           showSettings ? "time_show show_settings" : "time_hide hide_settings"
         }`}
+        ref={settingsRef}
       >
         <section className="settings_header">
           <h4>Settings</h4>
