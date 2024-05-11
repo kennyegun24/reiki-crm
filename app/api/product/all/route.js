@@ -8,6 +8,7 @@ export const GET = async (req, res) => {
   try {
     await connectMongoDb();
     const allProducts = await ProductSchema.find();
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     console.log(allProducts);
     return NextResponse.json({ allProducts });
   } catch (error) {
