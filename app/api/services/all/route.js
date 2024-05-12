@@ -3,6 +3,7 @@ import serviceSchema from "@/models/service_schema";
 import { NextResponse } from "next/server";
 
 // get services
+export const dynamic = "force-dynamic";
 export const GET = async (req, res) => {
   try {
     await connectMongoDb();
