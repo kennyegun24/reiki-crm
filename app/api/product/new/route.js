@@ -9,7 +9,7 @@ export const POST = async (req, res) => {
   try {
     await connectMongoDb();
     const savedProduct = await newProduct.save();
-    return NextResponse.json({ allProducts });
+    return NextResponse.json("Created");
   } catch (error) {
     return NextResponse.json({ error });
   }
