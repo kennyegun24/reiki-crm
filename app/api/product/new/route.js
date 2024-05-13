@@ -11,6 +11,7 @@ export const POST = async (req, res) => {
     const savedProduct = await newProduct.save();
     return NextResponse.json("Created");
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error });
   }
 };
