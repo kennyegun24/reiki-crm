@@ -22,8 +22,8 @@ const Page = () => {
   const createNewProduct = async (e) => {
     e.preventDefault();
     try {
-      const api = "http://localhost:3000/api/product/new";
-      // const api = "https://reiki-crm.vercel.app/api/product/new";
+      const api = `https://reiki-crm.vercel.app/api/product/new`;
+
       const req = await fetch(api, {
         method: "POST",
         headers: {
@@ -31,7 +31,6 @@ const Page = () => {
         },
         body: JSON.stringify(productToAdd),
       });
-      console.log("finish");
     } catch (error) {
       console.log(error);
     }

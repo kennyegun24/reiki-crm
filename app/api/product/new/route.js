@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 // get products
 export const POST = async (req, res) => {
   const data = await req.json();
+  console.log(data);
   const newProduct = new ProductSchema(data);
   try {
     await connectMongoDb();
