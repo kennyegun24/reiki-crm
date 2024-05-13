@@ -1,29 +1,67 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import "./style.css";
 import { FaPlus } from "react-icons/fa6";
 
-const page = () => {
+const Page = () => {
+  const [productToAdd, setProductToAdd] = useState({
+    product_name: "",
+    product_description: "",
+    price: null,
+    in_stock: null,
+    product_image: "",
+  });
+  const onTextChange = (e) => {
+    const { name, value } = e.target;
+    setProductToAdd((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const createNewProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const api = "http://localhost:3000/api/product/new";
+      // const api = "https://reiki-crm.vercel.app/api/product/new";
+      const req = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productToAdd),
+      });
+      console.log("finish");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="new_form_container">
-      <form>
+      <form onChange={(e) => onTextChange(e)} onSubmit={createNewProduct}>
         <h1>Add new product</h1>
         <hr />
         <div className="horizontal_inputs_container">
           <div>
             <label htmlFor="">Product Name:</label>
-            <input placeholder="Product name" type="text" name="" id="" />
+            <input
+              placeholder="Product name"
+              type="text"
+              name="product_name"
+              id=""
+            />
             <p>Enter a valid product name here</p>
           </div>
           <div>
             <label htmlFor="">Product Price:</label>
-            <input placeholder="Price" type="number" name="" id="" />
+            <input placeholder="Price" type="number" name="price" id="" />
             <p>Enter a valid number here</p>
           </div>
         </div>
         <div className="horizontal_inputs_container">
           <div>
             <label htmlFor="">In Stock:</label>
-            <input placeholder="In stock" type="number" name="" id="" />
+            <input placeholder="In stock" type="number" name="in_stock" id="" />
             <p>How many of this product is in stock?</p>
           </div>
           <div>
@@ -31,7 +69,7 @@ const page = () => {
             <textarea
               placeholder="Product Description..."
               type="number"
-              name=""
+              name="product_description"
               id=""
             />
             <p>Description of the product</p>
@@ -60,4 +98,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

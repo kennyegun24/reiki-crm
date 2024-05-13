@@ -47,6 +47,7 @@
           border-radius: 7px;
           border: 1px solid #303f50;
           resize: vertical;
+          color: #fff;
 
           &::placeholder {
             color: #acb6be;

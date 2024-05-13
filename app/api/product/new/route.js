@@ -9,7 +9,6 @@ export const POST = async (req, res) => {
   try {
     await connectMongoDb();
     const savedProduct = await newProduct.save();
-    res.status(201).json(savedProduct);
     return NextResponse.json({ allProducts });
   } catch (error) {
     return NextResponse.json({ error });
