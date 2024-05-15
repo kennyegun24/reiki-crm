@@ -11,6 +11,8 @@ import Paper from "@mui/material/Paper";
 import { FaPlus } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
+import TableLoading from "@/loaders/TableLoading";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,32 +34,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(product_name, price) {
-  return { product_name, price };
-}
-
-const rows = [
-  createData("Scent relaxing candles", 120),
-  createData("Mat stretcher", 99.99),
-  createData("Essential Oils", 18.24),
-  createData("Crystals", 290.99),
-  createData("Massage table", 299.99),
-  createData("Massage chair", 300),
-  createData("Jazz Sound Collections", 15),
-  createData("Scent relaxing candles", 120),
-  createData("Mat stretcher", 99.99),
-  createData("Essential Oils", 18.24),
-  createData("Crystals", 290.99),
-  createData("Massage table", 299.99),
-  createData("Massage chair", 300),
-  createData("Jazz Sound Collections", 15),
-];
-
 export default function CustomizedTables() {
   const router = useRouter();
   const navigate = () => {
     router.push("/add/service");
   };
+  const fetcher = async () => {
+    const fetchData = await fetch("/api/services/all");
+    const data = await fetchData.json();
+    return data?.allServices;
+  };
+  const { data, error, isLoading } = useSWR("fetcher", fetcher, {
+    refreshInterval: null,
+    errorRetryInterval: 5000,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    errorRetryCount: 1,
+    revalidateOnMount: true,
+  });
   return (
     <div
       style={{
@@ -74,28 +68,36 @@ export default function CustomizedTables() {
         component={Paper}
         sx={{ minWidth: 700, maxHeight: 500, border: "1px solid #91C3F4" }}
       >
-        <Table stickyHeader aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell sx={{ minWidth: "250px" }}>
-                Service Name
-              </StyledTableCell>
-              <StyledTableCell align="left" sx={{ minWidth: "100px" }}>
-                Price
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.product_name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.product_name}
+        {!isLoading && !error ? (
+          <Table stickyHeader aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell sx={{ minWidth: "250px" }}>
+                  Service Name
                 </StyledTableCell>
-                <StyledTableCell align="left">{row.price}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
+                <StyledTableCell align="left" sx={{ minWidth: "100px" }}>
+                  Price
+                </StyledTableCell>
+                <StyledTableCell align="left" sx={{ minWidth: "100px" }}>
+                  Timing
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((row) => (
+                <StyledTableRow key={row.product_name}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.service_name}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">{row.price}</StyledTableCell>
+                  <StyledTableCell align="left">{row.timing}</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <TableLoading />
+        )}
       </TableContainer>
       <button
         style={{

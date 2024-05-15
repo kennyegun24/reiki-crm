@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import { FaPlus } from "react-icons/fa6";
+import RequestLoading from "@/loaders/RequestLoading";
+import { MainContext } from "@/context/Main";
 
 const Page = () => {
   const [productToAdd, setProductToAdd] = useState({
@@ -11,6 +13,7 @@ const Page = () => {
     in_stock: null,
     product_image: "",
   });
+  const { setLoading } = useContext(MainContext);
   const onTextChange = (e) => {
     const { name, value } = e.target;
     setProductToAdd((prev) => ({
@@ -21,6 +24,7 @@ const Page = () => {
 
   const createNewProduct = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const api = `https://reiki-crm.vercel.app/api/product/new`;
 
@@ -31,7 +35,9 @@ const Page = () => {
         },
         body: JSON.stringify(productToAdd),
       });
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };

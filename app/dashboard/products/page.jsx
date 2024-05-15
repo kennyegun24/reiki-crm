@@ -11,6 +11,8 @@ import Paper from "@mui/material/Paper";
 import { FaPlus } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
+import TableLoading from "@/loaders/TableLoading";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,33 +33,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
-function createData(product_name, price, in_stock, sold) {
-  return { product_name, price, in_stock, sold };
-}
-
-const rows = [
-  createData("Scent relaxing candles", 120, 5, 29),
-  createData("Mat stretcher", 99.99, 1, 4),
-  createData("Essential Oils", 18.24, 4, 291),
-  createData("Crystals", 290.99, 1, 16),
-  createData("Massage table", 299.99, 29, 10),
-  createData("Massage chair", 300, 12, 32),
-  createData("Jazz Sound Collections", 15, 129, 320),
-  createData("Scent relaxing candles", 120, 5, 29),
-  createData("Mat stretcher", 99.99, 1, 4),
-  createData("Essential Oils", 18.24, 4, 291),
-  createData("Crystals", 290.99, 1, 16),
-  createData("Massage table", 299.99, 29, 10),
-  createData("Massage chair", 300, 12, 32),
-  createData("Jazz Sound Collections", 15, 129, 320),
-];
+// const fetchTables =
 
 export default function CustomizedTables() {
   const router = useRouter();
   const navigate = () => {
     router.push("/add/product");
   };
+  const fetcher = async () => {
+    const fetchData = await fetch("/api/product/all");
+    const data = await fetchData.json();
+    return data?.allProducts;
+  };
+  const { data, error, isLoading } = useSWR("fetcher", fetcher, {
+    refreshInterval: null,
+    errorRetryInterval: 5000,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    errorRetryCount: 1,
+    revalidateOnMount: true,
+  });
+
   return (
     <div
       style={{
@@ -74,37 +70,44 @@ export default function CustomizedTables() {
         component={Paper}
         sx={{ minWidth: 700, maxHeight: 500, border: "1px solid #91C3F4" }}
       >
-        <Table stickyHeader aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell sx={{ minWidth: "250px" }}>
-                Product Name
-              </StyledTableCell>
-              <StyledTableCell align="left" sx={{ minWidth: "100px" }}>
-                Price
-              </StyledTableCell>
-              <StyledTableCell sx={{ minWidth: "150px" }} align="center">
-                In Stock
-              </StyledTableCell>
-              <StyledTableCell sx={{ minWidth: "200px" }} align="left">
-                Sold
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.product_name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.product_name}
+        {!isLoading && !error ? (
+          <Table stickyHeader aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell sx={{ minWidth: "250px" }}>
+                  Product Name
                 </StyledTableCell>
-                <StyledTableCell align="left">{row.price}</StyledTableCell>
-                <StyledTableCell align="center">{row.in_stock}</StyledTableCell>
-                <StyledTableCell align="left">{row.sold}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
+                <StyledTableCell align="left" sx={{ minWidth: "100px" }}>
+                  Price
+                </StyledTableCell>
+                <StyledTableCell sx={{ minWidth: "150px" }} align="center">
+                  In Stock
+                </StyledTableCell>
+                <StyledTableCell sx={{ minWidth: "200px" }} align="left">
+                  Sold
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((row) => (
+                <StyledTableRow key={row.product_name}>
+                  <StyledTableCell component="th" scope="row">
+                    {row.product_name}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">{row.price}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.in_stock}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">{row.sold}</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <TableLoading />
+        )}
       </TableContainer>
+
       <button
         style={{
           background: "#91C3F4",

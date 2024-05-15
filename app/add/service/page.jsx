@@ -1,23 +1,82 @@
-import React from "react";
+"use client";
+import React, { useContext, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import "./style.css";
+import { MainContext } from "@/context/Main";
 
-const page = () => {
+const Page = () => {
+  const { setLoading } = useContext(MainContext);
+  const [productToAdd, setProductToAdd] = useState({
+    service_name: "",
+    service_description: "",
+    price: null,
+    timing: null,
+    service_image: "",
+  });
+  const onTextChange = (e) => {
+    const { name, value } = e.target;
+    setProductToAdd((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const createNewProduct = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const api = `https://reiki-crm.vercel.app/api/services/new`;
+
+      const req = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productToAdd),
+      });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
   return (
     <div className="new_form_container">
-      <form>
-        <h1>Add New Service</h1>
+      <form onChange={(e) => onTextChange(e)} onSubmit={createNewProduct}>
+        <h1>Add new service</h1>
         <hr />
         <div className="horizontal_inputs_container">
           <div>
-            <label htmlFor="">Service:</label>
-            <input placeholder="In stock" type="text" name="" id="" />
-            <p>What service is that?</p>
+            <label htmlFor="">Nervice Name:</label>
+            <input
+              placeholder="Nervice name"
+              type="text"
+              name="service_name"
+              id=""
+            />
+            <p>Enter a valid product name here</p>
+          </div>
+          <div>
+            <label htmlFor="">Service Price:</label>
+            <input placeholder="Price" type="number" name="price" id="" />
+            <p>Enter a valid number here</p>
+          </div>
+        </div>
+        <div className="horizontal_inputs_container">
+          <div>
+            <label htmlFor="">Timing:</label>
+            <input placeholder="Timing" type="number" name="timing" id="" />
+            <p>How long will this service take?</p>
           </div>
           <div>
             <label htmlFor="">Service Description:</label>
-            <textarea placeholder="Service Description..." name="" id="" />
-            <p>Description of the service</p>
+            <textarea
+              placeholder="Service Description..."
+              type="number"
+              name="service_description"
+              id=""
+            />
+            <p>Description of the Service</p>
           </div>
         </div>
         <button
@@ -36,11 +95,11 @@ const page = () => {
           }}
         >
           <FaPlus style={{ background: "transparent" }} />
-          Add New Service
+          Add New Product
         </button>
       </form>
     </div>
   );
 };
 
-export default page;
+export default Page;

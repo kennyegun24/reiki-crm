@@ -64,6 +64,16 @@ const widgets = [
         link: "/add/service",
         text: "Add service",
       },
+      {
+        icon: <IoMdAdd key={7} />,
+        link: "/add/service",
+        text: "Add user",
+      },
+      {
+        icon: <IoMdAdd key={7} />,
+        link: "/add/service",
+        text: "Add new order",
+      },
     ],
   },
   {
