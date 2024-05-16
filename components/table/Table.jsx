@@ -38,7 +38,7 @@ const TableComponent = ({
             <TableHead>
               <TableRow>
                 {tableHead.map((each, _) => (
-                  <StyledTableCell sx={{ minWidth: each.width }}>
+                  <StyledTableCell key={_} sx={{ minWidth: each.width }}>
                     {each.label}
                   </StyledTableCell>
                 ))}
