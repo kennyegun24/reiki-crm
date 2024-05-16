@@ -47,7 +47,7 @@ export default function CustomizedTables() {
   };
   const { data, error, isLoading } = useSWR("fetcher", fetcher, {
     refreshInterval: null,
-    errorRetryInterval: 5000,
+    errorRetryInterval: 500,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     errorRetryCount: 1,
