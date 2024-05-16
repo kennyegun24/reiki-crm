@@ -6,11 +6,10 @@ import { MainContext } from "@/context/Main";
 
 const Page = () => {
   const [productToAdd, setProductToAdd] = useState({
-    product_name: "",
-    product_description: "",
-    price: null,
-    in_stock: null,
-    product_image: "",
+    full_name: "",
+    mobile_number: "",
+    email_address: "",
+    address: "",
   });
   const { setLoading } = useContext(MainContext);
   const onTextChange = (e) => {
@@ -25,7 +24,7 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const api = `https://reiki-crm.vercel.app/api/product/new`;
+      const api = `/api/users/new`;
 
       const req = await fetch(api, {
         method: "POST",

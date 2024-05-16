@@ -1,23 +1,27 @@
 "use client";
 import React, { useContext, useState } from "react";
-// import "../style.css";
 import { FaPlus } from "react-icons/fa6";
 import { MainContext } from "@/context/Main";
 import { IoTrashOutline } from "react-icons/io5";
 
 const Page = () => {
-  const [productToAdd, setProductToAdd] = useState({
-    product_name: "",
-    product_description: "",
+  const [fields, setFields] = useState([
+    {
+      id: Math.random(),
+      product_name: "",
+      quantity: "",
+      price: "",
+    },
+  ]);
+  const [newOrder, setNewOrder] = useState({
+    customer_name: "",
     price: null,
-    in_stock: null,
-    product_image: "",
+    customer_email_address: null,
   });
-  const [fields, setFields] = useState([]);
   const { setLoading } = useContext(MainContext);
   const onTextChange = (e) => {
     const { name, value } = e.target;
-    setProductToAdd((prev) => ({
+    setNewOrder((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -27,14 +31,14 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const api = `https://reiki-crm.vercel.app/api/product/new`;
+      const api = `/api/orders/new`;
 
       const req = await fetch(api, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(productToAdd),
+        body: JSON.stringify({ ...newOrder, products: fields }),
       });
       setLoading(false);
     } catch (error) {
@@ -69,6 +73,8 @@ const Page = () => {
     );
   };
 
+  console.log(newOrder);
+
   return (
     <div className="new_form_container">
       <form onChange={(e) => onTextChange(e)}>
@@ -78,12 +84,6 @@ const Page = () => {
           <div className="order_inputs_container">
             <div>
               <label htmlFor="">Add products purchased:</label>
-              <div>
-                <input type="text" placeholder="Product name" />
-                <input type="text" placeholder="Quantity" />
-                <input type="text" placeholder="Price" />
-              </div>
-
               {fields.map((field, _) => (
                 <div key={_}>
                   <input
