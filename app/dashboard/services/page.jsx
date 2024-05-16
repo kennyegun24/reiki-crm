@@ -44,9 +44,9 @@ export default function CustomizedTables() {
     const data = await fetchData.json();
     return data?.allServices;
   };
-  const { data, error, isLoading } = useSWR("fetcher", fetcher, {
+  const { data, error, isLoading } = useSWR("fetchServices", fetcher, {
     refreshInterval: null,
-    errorRetryInterval: 5000,
+    errorRetryInterval: 500,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     errorRetryCount: 1,
