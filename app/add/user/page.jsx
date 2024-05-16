@@ -1,17 +1,18 @@
 "use client";
 import React, { useContext, useState } from "react";
+// import "../style.css";
 import { FaPlus } from "react-icons/fa6";
 import { MainContext } from "@/context/Main";
 
 const Page = () => {
-  const { setLoading } = useContext(MainContext);
   const [productToAdd, setProductToAdd] = useState({
-    service_name: "",
-    service_description: "",
+    product_name: "",
+    product_description: "",
     price: null,
-    timing: null,
-    service_image: "",
+    in_stock: null,
+    product_image: "",
   });
+  const { setLoading } = useContext(MainContext);
   const onTextChange = (e) => {
     const { name, value } = e.target;
     setProductToAdd((prev) => ({
@@ -24,7 +25,7 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const api = `https://reiki-crm.vercel.app/api/services/new`;
+      const api = `https://reiki-crm.vercel.app/api/product/new`;
 
       const req = await fetch(api, {
         method: "POST",
@@ -42,40 +43,45 @@ const Page = () => {
   return (
     <div className="new_form_container">
       <form onChange={(e) => onTextChange(e)} onSubmit={createNewProduct}>
-        <h1>Add new service</h1>
+        <h1>Add new user</h1>
         <hr />
         <div className="horizontal_inputs_container">
           <div>
-            <label htmlFor="">Nervice Name:</label>
-            <input
-              placeholder="Nervice name"
-              type="text"
-              name="service_name"
-              id=""
-            />
-            <p>Enter a valid product name here</p>
+            <label htmlFor="">Full Name:</label>
+            <input placeholder="Full name" type="text" name="full_name" id="" />
+            <p>Enter a user names here</p>
           </div>
           <div>
-            <label htmlFor="">Service Price:</label>
-            <input placeholder="Price" type="number" name="price" id="" />
-            <p>Enter a valid number here</p>
+            <label htmlFor="">Email Address</label>
+            <input
+              placeholder="Email..."
+              type="email"
+              name="email_address"
+              id=""
+            />
+            <p>Enter a valid email address.</p>
           </div>
         </div>
         <div className="horizontal_inputs_container">
           <div>
-            <label htmlFor="">Timing:</label>
-            <input placeholder="Timing" type="number" name="timing" id="" />
-            <p>How long will this service take?</p>
-          </div>
-          <div>
-            <label htmlFor="">Service Description:</label>
-            <textarea
-              placeholder="Service Description..."
+            <label htmlFor="">Mobile Number</label>
+            <input
+              placeholder="Mobile Number"
               type="number"
-              name="service_description"
+              name="mobile_number"
               id=""
             />
-            <p>Description of the Service</p>
+            <p>Customer Mobile Number</p>
+          </div>
+          <div>
+            <label htmlFor="">Address</label>
+            <input
+              placeholder="Customer Address..."
+              type="text"
+              name="address"
+              id=""
+            />
+            <p>Customer Address</p>
           </div>
         </div>
         <button
@@ -94,7 +100,7 @@ const Page = () => {
           }}
         >
           <FaPlus style={{ background: "transparent" }} />
-          Add New Product
+          Add Customer
         </button>
       </form>
     </div>

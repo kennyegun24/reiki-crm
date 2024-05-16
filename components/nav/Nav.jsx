@@ -9,6 +9,7 @@ import { TfiDashboard } from "react-icons/tfi";
 import {
   MdOutlineProductionQuantityLimits,
   MdOutlineHomeRepairService,
+  MdSell,
 } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import Link from "next/link";
@@ -33,11 +34,6 @@ const widgets = [
         icon: <FcStatistics key={2} />,
         link: "/dashboard/statistics",
         text: "Statistics",
-      },
-      {
-        icon: <FaUsersRectangle key={3} />,
-        link: "/dashboard/users",
-        text: "User",
       },
       {
         icon: <FiDatabase key={4} />,
@@ -66,12 +62,12 @@ const widgets = [
       },
       {
         icon: <IoMdAdd key={7} />,
-        link: "/add/service",
+        link: "/add/user",
         text: "Add user",
       },
       {
         icon: <IoMdAdd key={7} />,
-        link: "/add/service",
+        link: "/add/order",
         text: "Add new order",
       },
     ],
@@ -88,6 +84,16 @@ const widgets = [
         icon: <MdOutlineHomeRepairService key={9} />,
         text: "Services",
         link: "/dashboard/services",
+      },
+      {
+        icon: <FaUsersRectangle key={3} />,
+        link: "/dashboard/users",
+        text: "Users",
+      },
+      {
+        icon: <MdSell key={3} />,
+        link: "/dashboard/orders",
+        text: "Orders",
       },
     ],
   },
