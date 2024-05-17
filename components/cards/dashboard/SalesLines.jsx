@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { BsCash } from "react-icons/bs";
 
-const SalesLines = () => {
+const SalesLines = ({ total }) => {
   return (
     <div className="sales_lines_chart_card height_50vh">
       <h3>Sales chart</h3>
@@ -12,7 +12,7 @@ const SalesLines = () => {
           <BsCash color="#069DE3" />
         </div>
         <p>
-          Earnings so far <span>$340.00</span>
+          Earnings so far <span>${total}</span>
         </p>
       </div>
     </div>
