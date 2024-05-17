@@ -97,16 +97,19 @@ export const GET = async (req, res) => {
           sales: formatDouble(dailySales[0]?.totalSales || 0),
           prev: formatDouble(previousDailySales[0]?.totalSales || 0),
           prevText: "day",
+          header: "Daily",
         },
         {
           sales: formatDouble(monthlySales[0]?.totalSales || 0),
           prev: formatDouble(previousMonthlySales[0]?.totalSales || 0),
           prevText: "month",
+          header: "Monthly",
         },
         {
           sales: formatDouble(yearlySales[0]?.totalSales || 0),
           prev: formatDouble(previousYearlySales[0]?.totalSales || 0),
           prevText: "year",
+          header: "Yearly",
         },
       ],
     });

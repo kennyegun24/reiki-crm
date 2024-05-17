@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import DashboardSalesCards from "@/components/cards/DashboardSalesCards";
 import SalesLines from "@/components/cards/dashboard/SalesLines";
 import UsersCard from "@/components/cards/dashboard/UsersCard";
+import TableLoading from "@/loaders/TableLoading";
 import useSWR from "swr";
 
 export default function Home() {
@@ -27,19 +28,25 @@ export default function Home() {
   console.log(data);
   return (
     <div className={styles.container}>
-      <div className={styles.dashboard_sales_cards}>
-        {data?.dashboardSalesCards?.map((card, _) => (
-          <DashboardSalesCards key={_} ind={_} data={card} />
-        ))}
-      </div>
-      <div className={styles.metricCards}>
-        <div className={styles.user_card_container}>
-          <UsersCard />
-        </div>
-        <div className={styles.sales_ilnes_container}>
-          <SalesLines total={data?.totalSales} />
-        </div>
-      </div>
+      {!isLoading && !error ? (
+        <>
+          <div className={styles.dashboard_sales_cards}>
+            {data?.dashboardSalesCards?.map((card, _) => (
+              <DashboardSalesCards key={_} ind={_} data={card} />
+            ))}
+          </div>
+          <div className={styles.metricCards}>
+            <div className={styles.user_card_container}>
+              <UsersCard />
+            </div>
+            <div className={styles.sales_ilnes_container}>
+              <SalesLines total={data?.totalSales} />
+            </div>
+          </div>{" "}
+        </>
+      ) : (
+        <TableLoading />
+      )}
     </div>
   );
 }

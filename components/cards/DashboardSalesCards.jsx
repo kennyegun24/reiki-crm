@@ -8,7 +8,7 @@ const DashboardSalesCards = ({ ind, data }) => {
   };
   return (
     <div key={ind} className={`sales_card ${(ind + 1) % 3 === 0 && "diff"}`}>
-      <h2 className={"card_header"}>Daily Sales</h2>
+      <h2 className={"card_header"}>{data?.header} Sales</h2>
       <p className={"card_price"}>$ {data?.sales}</p>
       <div className={"text"}>
         <p>
