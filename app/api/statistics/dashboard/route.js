@@ -110,6 +110,7 @@ export const GET = async (req, res) => {
       ],
     });
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" });
+    console.log(error);
+    return NextResponse.json({ error: error });
   }
 };
