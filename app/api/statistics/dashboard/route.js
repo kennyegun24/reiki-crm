@@ -2,6 +2,7 @@ import connectMongoDb from "@/libs/mongodb";
 import OrderSchema from "@/models/order_schema";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
 export const GET = async (req, res) => {
   await connectMongoDb();
 
