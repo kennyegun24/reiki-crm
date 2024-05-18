@@ -4,6 +4,7 @@ import Nav from "@/components/nav/Nav";
 import TopNav from "@/components/nav/TopNav";
 import { MainProvider } from "@/context/Main";
 import { SettingsProvider } from "@/context/Settings";
+import { DashboardProvider } from "@/context/Dashboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <SettingsProvider>
-          <MainProvider>{children}</MainProvider>
+          <DashboardProvider>
+            <MainProvider>{children}</MainProvider>
+          </DashboardProvider>
         </SettingsProvider>
       </body>
     </html>

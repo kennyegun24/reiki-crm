@@ -6,6 +6,7 @@ const orderSchema = new Schema(
     products: { type: Array },
     customer_name: { type: String },
     customer_email_address: { type: String },
+    status: { type: String, default: "Pending" },
   },
   { timestamps: true }
 );

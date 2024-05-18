@@ -3,35 +3,19 @@ import styles from "./page.module.css";
 import DashboardSalesCards from "@/components/cards/DashboardSalesCards";
 import SalesLines from "@/components/cards/dashboard/SalesLines";
 import UsersCard from "@/components/cards/dashboard/UsersCard";
+import { PricesContext } from "@/context/Dashboard";
 import TableLoading from "@/loaders/TableLoading";
+import { useContext, useEffect } from "react";
 import useSWR from "swr";
 
 export default function Home() {
-  // const sales_card = Array.from({ length: 3 });
-  const fetcher = async () => {
-    const fetchData = await fetch("/api/statistics/dashboard");
-    const data = await fetchData.json();
-    return data;
-  };
-  const { data, error, isLoading } = useSWR(
-    "fetchDashboardSalesStats",
-    fetcher,
-    {
-      refreshInterval: null,
-      errorRetryInterval: 500,
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      errorRetryCount: 1,
-      revalidateOnMount: true,
-    }
-  );
-  console.log(data);
+  const { income, isLoading, error } = useContext(PricesContext);
   return (
     <div className={styles.container}>
       {!isLoading && !error ? (
         <>
           <div className={styles.dashboard_sales_cards}>
-            {data?.dashboardSalesCards?.map((card, _) => (
+            {income?.dashboardSalesCards?.map((card, _) => (
               <DashboardSalesCards key={_} ind={_} data={card} />
             ))}
           </div>
@@ -40,7 +24,7 @@ export default function Home() {
               <UsersCard />
             </div>
             <div className={styles.sales_ilnes_container}>
-              <SalesLines total={data?.totalSales} />
+              <SalesLines total={income?.totalSales} />
             </div>
           </div>{" "}
         </>

@@ -1,5 +1,6 @@
+"use client";
 import DashboardSalesCards from "@/components/cards/DashboardSalesCards";
-import React from "react";
+import React, { useContext } from "react";
 import "./style.css";
 import OtherCards from "@/components/cards/stats/OtherCards";
 import {
@@ -7,38 +8,63 @@ import {
   FaMoneyBill1Wave,
   FaChartLine,
 } from "react-icons/fa6";
-import { GiMoneyStack } from "react-icons/gi";
-import {} from "react-icons/fa6";
+import { PricesContext } from "@/context/Dashboard";
+import useSWR from "swr";
+import TableLoading from "@/loaders/TableLoading";
 const page = () => {
-  const sales_card = Array.from({ length: 5 });
+  const { income } = useContext(PricesContext);
+  const fetcher = async () => {
+    const fetchData = await fetch("/api/statistics/stats");
+    const data = await fetchData.json();
+    return data;
+  };
+  const { data, error, isLoading } = useSWR("fetchStats", fetcher, {
+    refreshInterval: null,
+    errorRetryInterval: 500,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    errorRetryCount: 1,
+    revalidateOnMount: true,
+  });
+
   return (
     <div className="stats_container">
-      {sales_card.map((card, _) => (
-        <DashboardSalesCards ind={_} key={_} />
-      ))}
+      {!isLoading && !error ? (
+        <>
+          {data?.stats?.map((card, _) => (
+            <DashboardSalesCards ind={_} data={card} key={_} />
+          ))}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <OtherCards
-          text={"Income"}
-          icon={<FaMoneyBill1Wave color="#22c63d" />}
-          value={"$45k"}
-          key={4283}
-        />
-        <OtherCards
-          text={"Income this month"}
-          icon={<FaChartLine color="#5ac2ff" />}
-          value={"$2.3k"}
-          key={78389}
-        />
-      </div>
-      <div style={{ height: "fit-content" }}>
-        <OtherCards
-          text={"Users"}
-          icon={<FaUsersViewfinder color="#fff" />}
-          value={"121"}
-          key={4283233}
-        />
-      </div>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
+            <OtherCards
+              text={"Daily Income"}
+              icon={<FaMoneyBill1Wave color="#22c63d" />}
+              value={`${income?.dashboardSalesCards[0]?.sales}`}
+              key={4283}
+            />
+            <OtherCards
+              text={"Income this month"}
+              icon={<FaChartLine color="#5ac2ff" />}
+              value={`${income?.dashboardSalesCards[1]?.sales}`}
+              key={78389}
+            />
+          </div>
+          <div style={{ height: "fit-content" }}>
+            <OtherCards
+              text={"Customers"}
+              icon={<FaUsersViewfinder color="#fff" />}
+              value={data?.usersCount}
+              key={4283233}
+            />
+          </div>
+        </>
+      ) : (
+        <div className="stats_loading">
+          <TableLoading />
+        </div>
+      )}
     </div>
   );
 };
@@ -46,10 +72,8 @@ const page = () => {
 export default page;
 
 // PENDING ORDERS
-// ONLINE ORDERS
-// RETURN ORDERS
-// USERS COUNT
-// ITEMS ON THE WAY
-// INCOME
+// DELIVERED ORDERS
+// TOTAL ORDERS
 // INCOME THIS MONTH
 // TOTAL INCOME
+// USERS COUNT
