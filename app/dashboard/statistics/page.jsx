@@ -11,7 +11,7 @@ import {
 import { PricesContext } from "@/context/Dashboard";
 import useSWR from "swr";
 import TableLoading from "@/loaders/TableLoading";
-const page = () => {
+const Page = () => {
   const { income } = useContext(PricesContext);
   const fetcher = async () => {
     const fetchData = await fetch("/api/statistics/stats");
@@ -69,7 +69,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 // PENDING ORDERS
 // DELIVERED ORDERS
