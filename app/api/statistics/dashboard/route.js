@@ -106,14 +106,26 @@ export const GET = async (req, res) => {
       prevDailyStats != 0
         ? (Math.floor(dailyStats - prevDailyStats) / prevDailyStats) * 100
         : 100;
+    const actualDayPerc =
+      prevDailyStats != 0
+        ? (Math.floor(dailyStats - prevDailyStats) / prevDailyStats) * 100
+        : (Math.floor(dailyStats - 0) / 1) * 100;
     const monthPerc =
       prevMonthlyStats != 0
         ? (Math.floor(monthlyStats - prevMonthlyStats) / prevMonthlyStats) * 100
         : 100;
+    const actualMonthPerc =
+      prevMonthlyStats != 0
+        ? (Math.floor(monthlyStats - prevMonthlyStats) / prevMonthlyStats) * 100
+        : (Math.floor(monthlyStats - 0) / 1) * 100;
     const yearPerc =
       prevYearlyStats != 0
         ? (Math.floor(yearlyStats - prevYearlyStats) / prevYearlyStats) * 100
         : 100;
+    const actualYearPerc =
+      prevYearlyStats != 0
+        ? (Math.floor(yearlyStats - prevYearlyStats) / prevYearlyStats) * 100
+        : (Math.floor(yearlyStats - 0) / 1) * 100;
 
     return NextResponse.json({
       totalSales: formatDouble(totalSales[0]?.totalSales || 0),
@@ -122,7 +134,7 @@ export const GET = async (req, res) => {
           sales: `$ ${formatDouble(dailyStats)}`,
           prevText: `  You made ${formatDouble(
             dailyStats - prevDailyStats
-          )} from the previous day. ${dayPerc.toFixed(2)}%`,
+          )} from the previous day. ${actualDayPerc.toFixed(2)}%`,
           header: "Daily Sales",
           percentageDifference: dayPerc,
         },
@@ -130,7 +142,7 @@ export const GET = async (req, res) => {
           sales: `$ ${monthlyStats}`,
           prevText: `  You made ${formatDouble(
             monthlyStats - prevMonthlyStats
-          )} from the previous month. ${monthPerc.toFixed(2)}%`,
+          )} from the previous month. ${actualMonthPerc.toFixed(2)}%`,
           header: "Monthly Sales",
           percentageDifference: monthPerc,
         },
@@ -138,7 +150,7 @@ export const GET = async (req, res) => {
           sales: `$ ${yearlyStats}`,
           prevText: `  You made ${formatDouble(
             yearlyStats - prevYearlyStats
-          )} from the previous year. ${yearPerc.toFixed(2)}%`,
+          )} from the previous year. ${actualYearPerc.toFixed(2)}%`,
           header: "Yearly Sales",
           percentageDifference: yearPerc,
         },

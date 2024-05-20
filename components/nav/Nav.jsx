@@ -36,11 +36,6 @@ const widgets = [
         text: "Statistics",
       },
       {
-        icon: <FiDatabase key={4} />,
-        link: "/dashboard/data",
-        text: "Data",
-      },
-      {
         icon: <IoPieChartOutline key={5} />,
         link: "/dashboard/charts",
         text: "Chart",

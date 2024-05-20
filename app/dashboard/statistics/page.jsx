@@ -11,6 +11,7 @@ import {
 import { PricesContext } from "@/context/Dashboard";
 import useSWR from "swr";
 import TableLoading from "@/loaders/TableLoading";
+import CountryList from "@/components/cards/CountryList";
 const Page = () => {
   const { income } = useContext(PricesContext);
   const fetcher = async () => {
@@ -28,44 +29,53 @@ const Page = () => {
   });
 
   return (
-    <div className="stats_container">
+    <section className="stats_page_container">
       {!isLoading && !error ? (
         <>
-          {data?.stats?.map((card, _) => (
-            <DashboardSalesCards ind={_} data={card} key={_} />
-          ))}
+          <div className="stats_container">
+            <>
+              {data?.stats?.map((card, _) => (
+                <DashboardSalesCards ind={_} data={card} key={_} />
+              ))}
 
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-          >
-            <OtherCards
-              text={"Daily Income"}
-              icon={<FaMoneyBill1Wave color="#22c63d" />}
-              value={`${income?.dashboardSalesCards[0]?.sales}`}
-              key={4283}
-            />
-            <OtherCards
-              text={"Income this month"}
-              icon={<FaChartLine color="#5ac2ff" />}
-              value={`${income?.dashboardSalesCards[1]?.sales}`}
-              key={78389}
-            />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                }}
+              >
+                <OtherCards
+                  text={"Daily Income"}
+                  icon={<FaMoneyBill1Wave color="#22c63d" />}
+                  value={`${income?.dashboardSalesCards[0]?.sales}`}
+                  key={4283}
+                />
+                <OtherCards
+                  text={"Income this month"}
+                  icon={<FaChartLine color="#5ac2ff" />}
+                  value={`${income?.dashboardSalesCards[1]?.sales}`}
+                  key={78389}
+                />
+              </div>
+              <div style={{ height: "fit-content" }}>
+                <OtherCards
+                  text={"Customers"}
+                  icon={<FaUsersViewfinder color="#fff" />}
+                  value={data?.usersCount}
+                  key={4283233}
+                />
+              </div>
+            </>
           </div>
-          <div style={{ height: "fit-content" }}>
-            <OtherCards
-              text={"Customers"}
-              icon={<FaUsersViewfinder color="#fff" />}
-              value={data?.usersCount}
-              key={4283233}
-            />
-          </div>
+          <CountryList />
         </>
       ) : (
         <div className="stats_loading">
           <TableLoading />
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

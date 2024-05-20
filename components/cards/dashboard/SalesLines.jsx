@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+// import "./style.css";
 import { BsCash } from "react-icons/bs";
 
 const SalesLines = ({ total }) => {
