@@ -57,7 +57,7 @@ const CountryList = () => {
       <hr />
       <div className="country_lists">
         {data?.map((arr, _) => (
-          <div className="country">
+          <div className="country" key={_}>
             <div className="country_name_image">
               <Flag code={arr.country_code} />
               <p>{arr.country}</p>
