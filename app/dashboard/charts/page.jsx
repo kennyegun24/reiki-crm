@@ -265,7 +265,7 @@ import useSWR from "swr";
 //   ],
 // };
 
-const page = () => {
+const Page = () => {
   const fetcher = async () => {
     const fetchData = await fetch("/api/statistics/graphs/orders");
     const data = await fetchData.json();
@@ -279,7 +279,7 @@ const page = () => {
     errorRetryCount: 1,
     revalidateOnMount: true,
   });
-  console.log(data);
+
   return (
     <div className="order_chart">
       <Orders
@@ -290,12 +290,12 @@ const page = () => {
       />
       <Orders
         data={data}
-        label={"Count"}
+        label={"Orders count"}
         type={"count"}
-        text={"Orders Count"}
+        text={"Number of Orders"}
       />
     </div>
   );
 };
 
-export default page;
+export default Page;

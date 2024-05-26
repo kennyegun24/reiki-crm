@@ -72,6 +72,7 @@ const Orders = ({ text, data, type, label }) => {
                   "rgba(143, 142, 140, 0.685)",
                 ],
                 borderColor: "#fff",
+                pointRadius: 1,
                 tension: 0.5,
                 fill: true,
                 borderWidth: 1,
