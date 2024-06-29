@@ -271,7 +271,7 @@ const Page = () => {
     const data = await fetchData.json();
     return data;
   };
-  const { data, error, isLoading } = useSWR("fetchProducts", fetcher, {
+  const { data, error, isLoading } = useSWR("fetchCharts", fetcher, {
     refreshInterval: null,
     errorRetryInterval: 500,
     revalidateIfStale: false,
